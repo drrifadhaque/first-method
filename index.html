@@ -7,786 +7,735 @@
   <meta name="description" content="Master AI prompting with the FIRST Framework. 45 careers. Real results. The last prompt guide you'll ever need.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold: #C9A84C;
       --gold-light: #E8D48B;
       --gold-dark: #A07C1C;
-      --black: #0A0A0A;
-      --dark: #111111;
-      --gray-900: #1A1A1A;
-      --gray-800: #2A2A2A;
-      --gray-700: #3A3A3A;
-      --gray-400: #8A8A8A;
-      --gray-300: #AAAAAA;
-      --white: #FAFAFA;
-      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --gold-glow: rgba(201,168,76,0.15);
+      --black: #050505;
+      --dark: #0A0A0A;
+      --gray-900: #111111;
+      --gray-800: #1A1A1A;
+      --gray-700: #2A2A2A;
+      --gray-600: #3A3A3A;
+      --gray-400: #777;
+      --gray-300: #999;
+      --white: #F5F5F7;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       background: var(--black);
       color: var(--white);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ===== NAV ===== */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 0 48px;
-      height: 52px;
-      display: flex; align-items: center; justify-content: space-between;
+    /* === NAV === */
+    .nav {
+      position: fixed; top:0; left:0; right:0; z-index:1000;
+      background: rgba(5,5,5,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      height: 48px;
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 0 clamp(20px,4vw,60px);
     }
-    nav .logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700; font-size: 18px;
-      color: var(--gold);
-      letter-spacing: -0.5px;
+    .nav-logo {
+      font-family: 'Playfair Display',serif;
+      font-weight:700; font-size:16px; color:var(--gold);
     }
-    nav .nav-links { display: flex; gap: 32px; }
-    nav .nav-links a {
-      color: var(--gray-400); text-decoration: none; font-size: 13px;
-      font-weight: 500; letter-spacing: 0.3px;
+    .nav-links { display:flex; gap:28px; }
+    .nav-links a {
+      color: var(--gray-300); text-decoration:none;
+      font-size:12px; font-weight:500; letter-spacing:0.4px;
       transition: color 0.3s;
     }
-    nav .nav-links a:hover { color: var(--white); }
-    nav .nav-cta {
-      background: var(--gold); color: var(--black);
-      padding: 8px 20px; border-radius: 980px;
-      font-size: 13px; font-weight: 600;
-      text-decoration: none; letter-spacing: 0.2px;
+    .nav-links a:hover { color:#fff; }
+    .nav-cta {
+      background:var(--gold); color:var(--black);
+      padding:7px 18px; border-radius:980px;
+      font-size:12px; font-weight:600; text-decoration:none;
       transition: all 0.3s;
     }
-    nav .nav-cta:hover { background: var(--gold-light); transform: scale(1.02); }
+    .nav-cta:hover { background:var(--gold-light); }
 
-    /* ===== HERO ===== */
+    /* === HERO === */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
       position: relative;
+      height: 100vh; min-height:700px;
+      display:flex; align-items:center; justify-content:center;
       overflow: hidden;
-      padding: 120px 24px 80px;
     }
-    .hero-video-bg {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0;
+    .hero-bg {
+      position:absolute; inset:0; z-index:0;
     }
-    .hero-video-bg video {
-      width: 100%; height: 100%; object-fit: cover;
-      opacity: 0.3;
+    .hero-bg video {
+      width:100%; height:100%; object-fit:cover;
+      opacity:0.25;
     }
-    .hero-video-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.9) 100%);
+    .hero-bg::after {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, var(--black) 70%),
+        linear-gradient(180deg, transparent 60%, var(--black) 100%);
     }
     .hero-content {
-      position: relative; z-index: 2;
-      max-width: 900px;
+      position:relative; z-index:2;
+      text-align:center;
+      max-width:880px;
+      padding: 0 24px;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(201,168,76,0.12);
-      border: 1px solid rgba(201,168,76,0.25);
-      padding: 6px 16px; border-radius: 980px;
-      font-size: 12px; font-weight: 600;
-      color: var(--gold); letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 32px;
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(201,168,76,0.1);
+      border:1px solid rgba(201,168,76,0.2);
+      padding:6px 18px; border-radius:980px;
+      font-size:11px; font-weight:600;
+      color:var(--gold); letter-spacing:2px;
+      text-transform:uppercase;
+      margin-bottom:28px;
+      opacity:0; animation: fadeUp 1s var(--ease) 0.2s forwards;
     }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      margin-bottom: 24px;
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(52px,9vw,100px);
+      font-weight:800; line-height:1;
+      letter-spacing:-3px;
+      margin-bottom:20px;
+      opacity:0; animation: fadeUp 1s var(--ease) 0.4s forwards;
     }
-    .hero h1 .gold { color: var(--gold); }
-    .hero p {
-      font-size: clamp(18px, 2.2vw, 24px);
-      color: var(--gray-300);
-      line-height: 1.5;
-      max-width: 640px;
-      margin: 0 auto 48px;
-      font-weight: 300;
+    .hero-title em {
+      font-style:italic;
+      color:var(--gold);
     }
-    .hero-cta-group {
-      display: flex; gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .hero-sub {
+      font-size:clamp(17px,2.2vw,22px);
+      color:var(--gray-300);
+      line-height:1.55;
+      max-width:580px; margin:0 auto 44px;
+      font-weight:300;
+      opacity:0; animation: fadeUp 1s var(--ease) 0.6s forwards;
     }
-    .btn-primary {
-      background: var(--gold); color: var(--black);
-      padding: 16px 40px; border-radius: 980px;
-      font-size: 16px; font-weight: 700;
-      text-decoration: none; letter-spacing: 0.3px;
-      transition: all 0.4s var(--ease-out-expo);
-      display: inline-flex; align-items: center; gap: 8px;
+    .hero-buttons {
+      display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+      opacity:0; animation: fadeUp 1s var(--ease) 0.8s forwards;
     }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 20px 40px rgba(201,168,76,0.3); }
-    .btn-secondary {
-      background: transparent; color: var(--white);
-      padding: 16px 40px; border-radius: 980px;
-      font-size: 16px; font-weight: 500;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s;
+    .btn-gold {
+      background:var(--gold); color:var(--black);
+      padding:15px 36px; border-radius:980px;
+      font-size:15px; font-weight:700; text-decoration:none;
+      transition: all 0.4s var(--ease);
+      display:inline-flex; align-items:center; gap:6px;
     }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+    .btn-gold:hover {
+      background:var(--gold-light);
+      transform:translateY(-2px);
+      box-shadow: 0 16px 48px rgba(201,168,76,0.25);
+    }
+    .btn-ghost {
+      background:transparent; color:var(--white);
+      padding:15px 36px; border-radius:980px;
+      font-size:15px; font-weight:500; text-decoration:none;
+      border:1px solid rgba(255,255,255,0.15);
+      transition:all 0.3s;
+    }
+    .btn-ghost:hover { border-color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.04); }
 
-    .hero-stats {
-      display: flex; gap: 48px; justify-content: center;
-      margin-top: 64px;
-      padding-top: 48px;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .hero-metrics {
+      display:flex; gap:56px; justify-content:center;
+      margin-top:72px;
+      opacity:0; animation: fadeUp 1s var(--ease) 1s forwards;
     }
-    .hero-stats .stat { text-align: center; }
-    .hero-stats .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 36px; font-weight: 700;
-      color: var(--gold);
+    .metric-num {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(28px,4vw,40px); font-weight:700;
+      color:var(--gold);
     }
-    .hero-stats .stat-label {
-      font-size: 13px; color: var(--gray-400);
-      margin-top: 4px; font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-
-    /* ===== VIDEO SECTION ===== */
-    .video-section {
-      padding: 120px 24px;
-      text-align: center;
-    }
-    .video-section .section-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-    }
-    .video-section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 700;
-      letter-spacing: -1.5px;
-      margin-bottom: 16px;
-    }
-    .video-section .subtitle {
-      font-size: 18px; color: var(--gray-400);
-      max-width: 600px; margin: 0 auto 64px;
-      font-weight: 300; line-height: 1.6;
-    }
-    .video-showcase {
-      max-width: 1000px; margin: 0 auto;
-      border-radius: 24px; overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .video-showcase video {
-      width: 100%; display: block;
+    .metric-label {
+      font-size:11px; color:var(--gray-400);
+      letter-spacing:1px; text-transform:uppercase;
+      margin-top:4px;
     }
 
-    /* ===== FRAMEWORK ===== */
-    .framework {
-      padding: 120px 24px;
-      max-width: 1200px; margin: 0 auto;
+    /* === SCROLL INDICATOR === */
+    .scroll-hint {
+      position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+      z-index:2;
+      opacity:0; animation: fadeUp 1s var(--ease) 1.2s forwards;
     }
-    .framework .section-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-      text-align: center;
+    .scroll-hint .mouse {
+      width:22px; height:36px; border:2px solid rgba(255,255,255,0.2);
+      border-radius:12px; margin:0 auto 8px; position:relative;
     }
-    .framework h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 700; letter-spacing: -1.5px;
-      text-align: center; margin-bottom: 80px;
+    .scroll-hint .mouse::after {
+      content:''; position:absolute; top:6px; left:50%; transform:translateX(-50%);
+      width:3px; height:8px; background:var(--gold); border-radius:2px;
+      animation: scrollPulse 2s ease infinite;
     }
-    .framework-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-    }
-    .framework-card {
-      background: var(--gray-900);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
-      padding: 40px 24px;
-      text-align: center;
-      transition: all 0.5s var(--ease-out-expo);
-      position: relative;
-      overflow: hidden;
-    }
-    .framework-card::before {
-      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-      width: 60px; height: 2px;
-      background: var(--gold);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .framework-card:hover { transform: translateY(-8px); border-color: rgba(201,168,76,0.3); }
-    .framework-card:hover::before { opacity: 1; }
-    .framework-letter {
-      font-family: 'Playfair Display', serif;
-      font-size: 56px; font-weight: 800;
-      color: var(--gold);
-      line-height: 1; margin-bottom: 16px;
-    }
-    .framework-word {
-      font-size: 18px; font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
-    }
-    .framework-desc {
-      font-size: 14px; color: var(--gray-400);
-      line-height: 1.6;
+    .scroll-hint span {
+      font-size:10px; color:var(--gray-400); letter-spacing:2px; text-transform:uppercase;
     }
 
-    /* ===== CAREERS ===== */
-    .careers {
-      padding: 120px 24px;
-      background: var(--dark);
+    /* === SECTION COMMON === */
+    section { position:relative; }
+    .section-pad { padding:clamp(80px,12vw,160px) clamp(20px,4vw,60px); }
+    .section-label {
+      font-size:11px; font-weight:700;
+      letter-spacing:3px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:14px;
     }
-    .careers .inner { max-width: 1200px; margin: 0 auto; }
-    .careers .section-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-      text-align: center;
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(36px,5.5vw,68px);
+      font-weight:700; letter-spacing:-2px;
+      line-height:1.1; margin-bottom:16px;
     }
-    .careers h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 700; letter-spacing: -1.5px;
-      text-align: center; margin-bottom: 16px;
+    .section-sub {
+      font-size:17px; color:var(--gray-400);
+      max-width:520px; font-weight:300; line-height:1.6;
     }
-    .careers .subtitle {
-      font-size: 18px; color: var(--gray-400);
-      text-align: center; max-width: 600px;
-      margin: 0 auto 64px; font-weight: 300;
+
+    /* === VIDEO REVEAL === */
+    .video-reveal {
+      padding:0 clamp(20px,4vw,60px);
+      margin:-80px auto 0;
+      position:relative; z-index:5;
+      max-width:1100px;
     }
-    .careers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+    .video-frame {
+      border-radius:20px; overflow:hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 40px 100px rgba(0,0,0,0.7),
+        0 0 120px rgba(201,168,76,0.06);
+      transform:perspective(1200px) rotateX(2deg);
+      transition:transform 0.8s var(--ease);
     }
+    .video-frame:hover { transform:perspective(1200px) rotateX(0); }
+    .video-frame video { width:100%; display:block; }
+
+    /* === FRAMEWORK === */
+    .framework { text-align:center; }
+    .fw-grid {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:16px; margin-top:64px;
+      max-width:1100px; margin-left:auto; margin-right:auto;
+    }
+    .fw-card {
+      background:linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:20px;
+      padding:44px 20px 36px;
+      transition:all 0.5s var(--ease);
+      position:relative; overflow:hidden;
+    }
+    .fw-card::before {
+      content:''; position:absolute; top:0; left:0; right:0;
+      height:2px; background:var(--gold);
+      transform:scaleX(0); transition:transform 0.5s var(--ease);
+    }
+    .fw-card:hover {
+      transform:translateY(-8px);
+      border-color:rgba(201,168,76,0.2);
+      background:linear-gradient(180deg, rgba(201,168,76,0.06) 0%, transparent 100%);
+    }
+    .fw-card:hover::before { transform:scaleX(1); }
+    .fw-letter {
+      font-family:'Playfair Display',serif;
+      font-size:52px; font-weight:800; color:var(--gold);
+      line-height:1; margin-bottom:14px;
+    }
+    .fw-word {
+      font-size:16px; font-weight:700; margin-bottom:10px;
+      letter-spacing:0.5px;
+    }
+    .fw-desc {
+      font-size:13px; color:var(--gray-400); line-height:1.6;
+    }
+
+    /* === VIDEO SECTION === */
+    .video-split {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:clamp(24px,4vw,60px);
+      align-items:center;
+      max-width:1200px; margin:0 auto;
+    }
+    .video-split.reverse { direction:rtl; }
+    .video-split.reverse > * { direction:ltr; }
+    .video-split .text { padding:20px 0; }
+    .video-split .visual {
+      border-radius:16px; overflow:hidden;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+    }
+    .video-split .visual video { width:100%; display:block; }
+
+    /* === CAREERS === */
+    .careers-section { background:var(--dark); }
+    .careers-scroll {
+      display:flex; gap:16px;
+      overflow-x:auto;
+      padding:48px clamp(20px,4vw,60px) 24px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .careers-scroll::-webkit-scrollbar { display:none; }
     .career-card {
-      background: var(--gray-900);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 16px;
-      padding: 32px 24px;
-      transition: all 0.4s var(--ease-out-expo);
+      min-width:280px; max-width:320px;
+      background:var(--gray-900);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:18px;
+      padding:32px 24px;
+      scroll-snap-align:start;
+      transition:all 0.4s var(--ease);
+      flex-shrink:0;
     }
-    .career-card:hover { transform: translateY(-4px); border-color: rgba(201,168,76,0.2); }
-    .career-icon { font-size: 32px; margin-bottom: 16px; }
-    .career-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .career-card p { font-size: 14px; color: var(--gray-400); line-height: 1.5; }
+    .career-card:hover {
+      transform:translateY(-4px);
+      border-color:rgba(201,168,76,0.2);
+    }
+    .career-icon { font-size:28px; margin-bottom:14px; }
+    .career-card h3 { font-size:16px; font-weight:700; margin-bottom:8px; }
+    .career-card p { font-size:13px; color:var(--gray-400); line-height:1.5; }
     .career-tag {
-      display: inline-block; margin-top: 12px;
-      font-size: 11px; font-weight: 600;
-      color: var(--gold); letter-spacing: 1px;
-      text-transform: uppercase;
+      display:inline-block; margin-top:12px;
+      font-size:10px; font-weight:700;
+      color:var(--gold); letter-spacing:1.5px;
+      text-transform:uppercase;
     }
 
-    /* ===== PRICING ===== */
-    .pricing {
-      padding: 120px 24px;
-      text-align: center;
+    /* === TESTIMONIAL === */
+    .testimonial-section {
+      text-align:center;
+      background:linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
     }
-    .pricing .section-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
+    .testimonial-section blockquote {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(22px,3.2vw,40px);
+      font-weight:400; font-style:italic;
+      line-height:1.45; color:var(--gray-300);
+      max-width:760px; margin:0 auto 28px;
     }
-    .pricing h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 700; letter-spacing: -1.5px;
-      margin-bottom: 80px;
+    .testimonial-author {
+      font-size:13px; font-weight:600; color:var(--gold);
     }
+
+    /* === PRICING === */
+    .pricing-section { text-align:center; }
     .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
+      max-width:1000px; margin:64px auto 0;
     }
     .price-card {
-      background: var(--gray-900);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 24px;
-      padding: 48px 32px;
-      text-align: left;
-      transition: all 0.4s var(--ease-out-expo);
-      position: relative;
+      background:var(--gray-900);
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:24px;
+      padding:44px 28px 36px;
+      text-align:left;
+      transition:all 0.4s var(--ease);
+      position:relative;
     }
     .price-card.featured {
-      border-color: var(--gold);
-      background: linear-gradient(180deg, rgba(201,168,76,0.08) 0%, var(--gray-900) 100%);
+      border-color:var(--gold);
+      background:linear-gradient(180deg, rgba(201,168,76,0.06) 0%, var(--gray-900) 100%);
     }
     .price-card.featured::before {
-      content: 'MOST POPULAR';
-      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: var(--black);
-      padding: 4px 16px; border-radius: 980px;
-      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      content:'BEST VALUE';
+      position:absolute; top:-11px; left:50%; transform:translateX(-50%);
+      background:var(--gold); color:var(--black);
+      padding:4px 14px; border-radius:980px;
+      font-size:10px; font-weight:700; letter-spacing:1.5px;
     }
-    .price-card:hover { transform: translateY(-4px); }
+    .price-card:hover { transform:translateY(-4px); }
     .price-tier {
-      font-size: 14px; font-weight: 600;
-      color: var(--gold); letter-spacing: 1px;
-      text-transform: uppercase; margin-bottom: 8px;
+      font-size:12px; font-weight:700; color:var(--gold);
+      letter-spacing:1.5px; text-transform:uppercase;
+      margin-bottom:6px;
     }
     .price-amount {
-      font-family: 'Playfair Display', serif;
-      font-size: 48px; font-weight: 800;
-      margin-bottom: 8px;
+      font-family:'Playfair Display',serif;
+      font-size:44px; font-weight:800; margin-bottom:6px;
     }
-    .price-amount .currency { font-size: 24px; font-weight: 400; }
+    .price-amount .cur { font-size:20px; font-weight:400; }
     .price-desc {
-      font-size: 14px; color: var(--gray-400);
-      margin-bottom: 32px; line-height: 1.5;
+      font-size:13px; color:var(--gray-400);
+      margin-bottom:28px; line-height:1.5;
     }
-    .price-features {
-      list-style: none; margin-bottom: 32px;
+    .price-list {
+      list-style:none; margin-bottom:28px;
     }
-    .price-features li {
-      padding: 8px 0;
-      font-size: 14px; color: var(--gray-300);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      display: flex; align-items: center; gap: 10px;
+    .price-list li {
+      padding:7px 0; font-size:13px; color:var(--gray-300);
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      display:flex; align-items:center; gap:8px;
     }
-    .price-features li::before {
-      content: '✓'; color: var(--gold); font-weight: 700;
+    .price-list li::before {
+      content:'✓'; color:var(--gold); font-weight:700; font-size:12px;
     }
-    .price-card .btn-primary {
-      width: 100%; justify-content: center;
+    .price-card .btn-gold { width:100%; justify-content:center; }
+    .price-card .btn-outline {
+      width:100%; justify-content:center;
+      background:transparent; border:1px solid var(--gold);
+      color:var(--gold); padding:15px 36px; border-radius:980px;
+      font-size:15px; font-weight:600; text-decoration:none;
+      transition:all 0.3s;
     }
+    .price-card .btn-outline:hover { background:rgba(201,168,76,0.1); }
 
-    /* ===== TESTIMONIAL ===== */
-    .testimonial {
-      padding: 120px 24px;
-      background: var(--dark);
-      text-align: center;
-    }
-    .testimonial blockquote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 3.5vw, 42px);
-      font-weight: 400;
-      line-height: 1.4;
-      max-width: 800px;
-      margin: 0 auto 32px;
-      color: var(--gray-300);
-      font-style: italic;
-    }
-    .testimonial .author {
-      font-size: 14px; font-weight: 600;
-      color: var(--gold);
-    }
-
-    /* ===== FINAL CTA ===== */
+    /* === FINAL CTA === */
     .final-cta {
-      padding: 160px 24px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      text-align:center;
+      position:relative; overflow:hidden;
     }
     .final-cta::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 70%);
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
     }
     .final-cta h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 800; letter-spacing: -2px;
-      margin-bottom: 24px;
-      position: relative;
+      font-family:'Playfair Display',serif;
+      font-size:clamp(44px,7vw,80px);
+      font-weight:800; letter-spacing:-2px;
+      margin-bottom:20px; position:relative;
     }
     .final-cta p {
-      font-size: 20px; color: var(--gray-400);
-      max-width: 500px; margin: 0 auto 48px;
-      font-weight: 300; line-height: 1.5;
-      position: relative;
-    }
-    .final-cta .btn-primary {
-      position: relative;
-      font-size: 18px; padding: 20px 56px;
+      font-size:18px; color:var(--gray-400);
+      max-width:480px; margin:0 auto 44px;
+      font-weight:300; line-height:1.5;
+      position:relative;
     }
 
-    /* ===== FOOTER ===== */
+    /* === FOOTER === */
     footer {
-      padding: 48px 24px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
+      padding:40px 24px;
+      border-top:1px solid rgba(255,255,255,0.04);
+      text-align:center;
     }
-    footer p {
-      font-size: 13px; color: var(--gray-400);
-    }
-    footer a { color: var(--gold); text-decoration: none; }
+    footer p { font-size:12px; color:var(--gray-400); }
+    footer a { color:var(--gold); text-decoration:none; }
 
-    /* ===== ANIMATIONS ===== */
-    .fade-up {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    /* === ANIMATIONS === */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
+      to { opacity:1; transform:translateY(0); }
     }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .stagger-1 { transition-delay: 0.1s; }
-    .stagger-2 { transition-delay: 0.2s; }
-    .stagger-3 { transition-delay: 0.3s; }
-    .stagger-4 { transition-delay: 0.4s; }
-    .stagger-5 { transition-delay: 0.5s; }
+    @keyframes scrollPulse {
+      0%,100% { opacity:0.3; transform:translateX(-50%) translateY(0); }
+      50% { opacity:1; transform:translateX(-50%) translateY(4px); }
+    }
+    .reveal {
+      opacity:0; transform:translateY(40px);
+      transition:opacity 0.9s var(--ease), transform 0.9s var(--ease);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-d1 { transition-delay:0.1s; }
+    .reveal-d2 { transition-delay:0.2s; }
+    .reveal-d3 { transition-delay:0.3s; }
+    .reveal-d4 { transition-delay:0.4s; }
+    .reveal-d5 { transition-delay:0.5s; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      nav .nav-links { display: none; }
-      .hero-stats { flex-direction: column; gap: 24px; }
-      .framework-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-      .hero-cta-group { flex-direction: column; align-items: center; }
+    /* === GLOW DIVIDER === */
+    .glow-divider {
+      width:100%; height:1px; margin:0 auto;
+      background:linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.3) 50%, transparent 100%);
     }
 
-    /* ===== SMOOTH SCROLLBAR ===== */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--black); }
-    ::-webkit-scrollbar-thumb { background: var(--gray-700); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+    /* === PARTICLES === */
+    #particles {
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+    }
+    .dot {
+      position:absolute; border-radius:50%;
+      background:var(--gold); opacity:0;
+      animation:drift linear infinite;
+    }
+    @keyframes drift {
+      0% { opacity:0; transform:translateY(100vh) scale(0.5); }
+      15% { opacity:0.5; }
+      85% { opacity:0.5; }
+      100% { opacity:0; transform:translateY(-10vh) scale(1); }
+    }
 
-    /* ===== FLOATING PARTICLES ===== */
-    .particles {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
+    /* === RESPONSIVE === */
+    @media(max-width:900px) {
+      .fw-grid { grid-template-columns:1fr 1fr; max-width:440px; }
+      .video-split { grid-template-columns:1fr; }
+      .video-split.reverse { direction:ltr; }
+      .pricing-grid { grid-template-columns:1fr; max-width:380px; margin-left:auto; margin-right:auto; }
+      .hero-metrics { gap:32px; }
+      .nav-links { display:none; }
     }
-    .particle {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0;
-      animation: float-particle linear infinite;
+    @media(max-width:500px) {
+      .fw-grid { grid-template-columns:1fr; max-width:300px; }
+      .hero-metrics { flex-direction:column; gap:20px; }
     }
-    @keyframes float-particle {
-      0% { opacity: 0; transform: translateY(100vh); }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { opacity: 0; transform: translateY(-10vh); }
-    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--black); }
+    ::-webkit-scrollbar-thumb { background:var(--gray-700); border-radius:3px; }
   </style>
 </head>
 <body>
 
-  <!-- Particles Background -->
-  <div class="particles" id="particles"></div>
+<div id="particles"></div>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="logo">The FIRST Method</div>
-    <div class="nav-links">
-      <a href="#framework">Framework</a>
-      <a href="#careers">Careers</a>
-      <a href="#pricing">Pricing</a>
-    </div>
-    <a href="#pricing" class="nav-cta">Get the Book</a>
-  </nav>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">The FIRST Method</div>
+  <div class="nav-links">
+    <a href="#framework">Framework</a>
+    <a href="#careers">Careers</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <a href="#pricing" class="nav-cta">Get the Book</a>
+</nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-video-bg">
-      <video autoplay muted loop playsinline id="heroVideo">
-        <!-- Video loaded dynamically -->
-      </video>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline id="v-hero">
+      <source src="videos/ai_viz.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">✦ Gold Standard for Prompt Engineering</div>
+    <h1 class="hero-title">The <em>FIRST</em><br>Method</h1>
+    <p class="hero-sub">45 careers. One framework. The definitive guide to getting extraordinary results from AI — every single time.</p>
+    <div class="hero-buttons">
+      <a href="#pricing" class="btn-gold">Get Your Copy →</a>
+      <a href="#framework" class="btn-ghost">See the Framework</a>
     </div>
-    <div class="hero-content">
-      <div class="hero-badge fade-up">✦ GOLD STANDARD FOR PROMPT ENGINEERING</div>
-      <h1 class="fade-up stagger-1">
-        The <span class="gold">FIRST</span><br>Method
-      </h1>
-      <p class="fade-up stagger-2">
-        45 careers. One framework. The definitive guide to getting extraordinary results from AI — every single time.
-      </p>
-      <div class="hero-cta-group fade-up stagger-3">
-        <a href="#pricing" class="btn-primary">Get Your Copy →</a>
-        <a href="#framework" class="btn-secondary">See the Framework</a>
-      </div>
-      <div class="hero-stats fade-up stagger-4">
-        <div class="stat">
-          <div class="stat-number">45</div>
-          <div class="stat-label">Career Guides</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">58</div>
-          <div class="stat-label">Techniques Research</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">1</div>
-          <div class="stat-label">Framework</div>
-        </div>
-      </div>
+    <div class="hero-metrics">
+      <div><div class="metric-num">45</div><div class="metric-label">Career Guides</div></div>
+      <div><div class="metric-num">58</div><div class="metric-label">Techniques</div></div>
+      <div><div class="metric-num">1</div><div class="metric-label">Framework</div></div>
     </div>
-  </section>
+  </div>
+  <div class="scroll-hint">
+    <div class="mouse"></div>
+    <span>Scroll</span>
+  </div>
+</section>
 
-  <!-- Video Showcase -->
-  <section class="video-section">
-    <div class="section-label fade-up">SEE IT IN ACTION</div>
-    <h2 class="fade-up stagger-1">Prompts That<br>Actually Work</h2>
-    <p class="subtitle fade-up stagger-2">
-      Stop getting mediocre AI results. The FIRST Method transforms how you communicate with AI.
-    </p>
-    <div class="video-showcase fade-up stagger-3">
-      <video autoplay muted loop playsinline id="frameworkVideo">
-        <!-- Video loaded dynamically -->
-      </video>
-    </div>
-  </section>
+<!-- VIDEO REVEAL -->
+<div class="video-reveal">
+  <div class="video-frame reveal">
+    <video autoplay muted loop playsinline>
+      <source src="videos/product.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
 
-  <!-- Framework -->
-  <section class="framework" id="framework">
-    <div class="section-label fade-up">THE FRAMEWORK</div>
-    <h2 class="fade-up stagger-1">Five Letters.<br>Infinite Possibilities.</h2>
-    <div class="framework-grid">
-      <div class="framework-card fade-up stagger-1">
-        <div class="framework-letter">F</div>
-        <div class="framework-word">Format</div>
-        <div class="framework-desc">Define the output structure. Bullet points, tables, paragraphs — tell AI exactly how to respond.</div>
-      </div>
-      <div class="framework-card fade-up stagger-2">
-        <div class="framework-letter">I</div>
-        <div class="framework-word">Identity</div>
-        <div class="framework-desc">Assign expertise. "You are a senior data scientist" changes everything AI produces.</div>
-      </div>
-      <div class="framework-card fade-up stagger-3">
-        <div class="framework-letter">R</div>
-        <div class="framework-word">Reference</div>
-        <div class="framework-desc">Provide context. Examples, documents, data — the more specific, the better the output.</div>
-      </div>
-      <div class="framework-card fade-up stagger-4">
-        <div class="framework-letter">S</div>
-        <div class="framework-word">Specifics</div>
-        <div class="framework-desc">Detail the requirements. Word count, tone, audience, constraints — leave nothing to assumption.</div>
-      </div>
-      <div class="framework-card fade-up stagger-5">
-        <div class="framework-letter">T</div>
-        <div class="framework-word">Tone</div>
-        <div class="framework-desc">Set the voice. Professional, casual, empathetic, authoritative — match your brand.</div>
-      </div>
+<!-- FRAMEWORK -->
+<section class="framework section-pad" id="framework">
+  <div class="section-label reveal">The Framework</div>
+  <h2 class="section-title reveal reveal-d1">Five Letters.<br>Infinite Possibilities.</h2>
+  <p class="section-sub reveal reveal-d2" style="margin:16px auto 0; text-align:center;">
+    Every great AI output starts with a great prompt. FIRST gives you the structure.
+  </p>
+  <div class="fw-grid">
+    <div class="fw-card reveal reveal-d1">
+      <div class="fw-letter">F</div>
+      <div class="fw-word">Format</div>
+      <div class="fw-desc">Define the output structure. Tell AI exactly how to respond.</div>
     </div>
-  </section>
+    <div class="fw-card reveal reveal-d2">
+      <div class="fw-letter">I</div>
+      <div class="fw-word">Identity</div>
+      <div class="fw-desc">Assign expertise. A role changes everything AI produces.</div>
+    </div>
+    <div class="fw-card reveal reveal-d3">
+      <div class="fw-letter">R</div>
+      <div class="fw-word">Reference</div>
+      <div class="fw-desc">Provide context. Examples, documents, data — specificity wins.</div>
+    </div>
+    <div class="fw-card reveal reveal-d4">
+      <div class="fw-letter">S</div>
+      <div class="fw-word">Specifics</div>
+      <div class="fw-desc">Detail requirements. Word count, audience, constraints.</div>
+    </div>
+    <div class="fw-card reveal reveal-d5">
+      <div class="fw-letter">T</div>
+      <div class="fw-word">Tone</div>
+      <div class="fw-desc">Set the voice. Professional, casual, empathetic — match your brand.</div>
+    </div>
+  </div>
+</section>
 
-  <!-- Careers -->
-  <section class="careers" id="careers">
-    <div class="inner">
-      <div class="section-label fade-up">45 CAREERS</div>
-      <h2 class="fade-up stagger-1">Your Career.<br>Supercharged.</h2>
-      <p class="subtitle fade-up stagger-2">
-        Each career comes with ready-to-use prompts, advanced techniques, and real transformation stories.
-      </p>
-      <div class="careers-grid">
-        <div class="career-card fade-up stagger-1">
-          <div class="career-icon">📱</div>
-          <h3>Content Marketer</h3>
-          <p>Generate 30 days of content in 20 minutes. SEO blogs, social posts, email sequences — all on brand.</p>
-          <div class="career-tag">12 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-2">
-          <div class="career-icon">🎯</div>
-          <h3>Digital Marketer</h3>
-          <p>Build campaigns that convert. Ad copy, funnel strategy, A/B test ideas — backed by data.</p>
-          <div class="career-tag">15 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-3">
-          <div class="career-icon">👩‍🏫</div>
-          <h3>Teacher</h3>
-          <p>Lesson plans, assessments, differentiated instruction — teach smarter, not harder.</p>
-          <div class="career-tag">10 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-4">
-          <div class="career-icon">💻</div>
-          <h3>Software Developer</h3>
-          <p>Code review, architecture decisions, debugging — AI as your senior pair programmer.</p>
-          <div class="career-tag">14 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-5">
-          <div class="career-icon">📊</div>
-          <h3>Data Analyst</h3>
-          <p>SQL queries, dashboard design, insight narratives — turn raw data into board-ready stories.</p>
-          <div class="career-tag">11 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-1">
-          <div class="career-icon">🎨</div>
-          <h3>Graphic Designer</h3>
-          <p>Brand guidelines, creative briefs, design systems — AI as your creative director.</p>
-          <div class="career-tag">9 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-2">
-          <div class="career-icon">✍️</div>
-          <h3>Copywriter</h3>
-          <p>Headlines that hook, body that converts, CTAs that click — persuasion at scale.</p>
-          <div class="career-tag">13 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-3">
-          <div class="career-icon">🏥</div>
-          <h3>Healthcare Professional</h3>
-          <p>Patient communication, research summaries, clinical documentation — accurate and compliant.</p>
-          <div class="career-tag">8 Ready Prompts</div>
-        </div>
-        <div class="career-card fade-up stagger-4">
-          <div class="career-icon">📈</div>
-          <h3>Entrepreneur</h3>
-          <p>Business plans, pitch decks, market analysis — your AI co-founder for every decision.</p>
-          <div class="career-tag">16 Ready Prompts</div>
-        </div>
-      </div>
-      <p style="text-align:center; margin-top:48px; color:var(--gray-400); font-size:15px;" class="fade-up">
-        + 36 more careers with complete prompt libraries
+<div class="glow-divider"></div>
+
+<!-- VIDEO: TRANSFORMATION -->
+<section class="section-pad">
+  <div class="video-split">
+    <div class="text">
+      <div class="section-label reveal">The Transformation</div>
+      <h2 class="section-title reveal reveal-d1">Same AI.<br>Wildly Different<br>Results.</h2>
+      <p class="section-sub reveal reveal-d2">
+        The difference between a generic response and a game-changing one? A structured prompt. FIRST turns amateurs into power users.
       </p>
     </div>
-  </section>
-
-  <!-- Transformation Video -->
-  <section class="video-section">
-    <div class="section-label fade-up">THE TRANSFORMATION</div>
-    <h2 class="fade-up stagger-1">Before & After<br>The FIRST Method</h2>
-    <p class="subtitle fade-up stagger-2">
-      See the difference structured prompting makes. Same AI. Same question. Completely different results.
-    </p>
-    <div class="video-showcase fade-up stagger-3">
-      <video autoplay muted loop playsinline id="transformVideo">
-        <!-- Video loaded dynamically -->
+    <div class="visual reveal reveal-d3">
+      <video autoplay muted loop playsinline>
+        <source src="videos/transformation.mp4" type="video/mp4">
       </video>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Testimonial -->
-  <section class="testimonial">
-    <blockquote class="fade-up">
-      "I went from getting generic AI responses to getting outputs that my clients pay thousands for. The FIRST Method didn't just improve my prompts — it changed how I think about communication."
-    </blockquote>
-    <div class="author fade-up stagger-1">— Early Beta Tester</div>
-  </section>
-
-  <!-- Pricing -->
-  <section class="pricing" id="pricing">
-    <div class="section-label fade-up">GET YOUR COPY</div>
-    <h2 class="fade-up stagger-1">Invest in Your<br>AI Future</h2>
-    <div class="pricing-grid">
-      <div class="price-card fade-up stagger-1">
-        <div class="price-tier">Free Preview</div>
-        <div class="price-amount"><span class="currency">₹</span>0</div>
-        <div class="price-desc">Get started with 30 career prompts and the FIRST framework basics.</div>
-        <ul class="price-features">
-          <li>30 Career Guides</li>
-          <li>Basic FIRST Framework</li>
-          <li>Community Access</li>
-          <li>Email Tips</li>
-        </ul>
-        <a href="#" class="btn-primary" style="background:transparent; border:1px solid var(--gold); color:var(--gold);">
-          Download Free →
-        </a>
-      </div>
-      <div class="price-card featured fade-up stagger-2">
-        <div class="price-tier">Complete Ebook</div>
-        <div class="price-amount"><span class="currency">₹</span>299</div>
-        <div class="price-desc">The full playbook. 45 careers, advanced techniques, and money prompts.</div>
-        <ul class="price-features">
-          <li>All 45 Career Guides</li>
-          <li>Advanced FIRST Techniques</li>
-          <li>Money Prompts Library</li>
-          <li>Conversation Architecture</li>
-          <li>Transformation Stories</li>
-          <li>Lifetime Updates</li>
-        </ul>
-        <a href="#" class="btn-primary">Buy Now — ₹299 →</a>
-      </div>
-      <div class="price-card fade-up stagger-3">
-        <div class="price-tier">Ultimate Bundle</div>
-        <div class="price-amount"><span class="currency">₹</span>999</div>
-        <div class="price-desc">Ebook + video course + templates. Everything you need to master AI.</div>
-        <ul class="price-features">
-          <li>Everything in Ebook</li>
-          <li>Video Masterclass</li>
-          <li>50+ Prompt Templates</li>
-          <li>Industry Playbooks</li>
-          <li>Priority Support</li>
-          <li>1-on-1 Setup Call</li>
-        </ul>
-        <a href="#" class="btn-primary">Get the Bundle →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final-cta">
-    <h2 class="fade-up">Stop Guessing.<br>Start <span style="color:var(--gold);">FIRST.</span></h2>
-    <p class="fade-up stagger-1">
-      Join thousands of professionals who turned AI from a novelty into their biggest competitive advantage.
+<!-- CAREERS -->
+<section class="careers-section" id="careers">
+  <div class="section-pad" style="padding-bottom:0;">
+    <div class="section-label reveal">45 Careers</div>
+    <h2 class="section-title reveal reveal-d1">Your Career.<br>Supercharged.</h2>
+    <p class="section-sub reveal reveal-d2">
+      Each career comes with ready-to-use prompts, advanced techniques, and real transformation stories.
     </p>
-    <a href="#pricing" class="btn-primary fade-up stagger-2">Get Your Copy Now →</a>
-  </section>
+  </div>
+  <div class="careers-scroll">
+    <div class="career-card"><div class="career-icon">📱</div><h3>Content Marketer</h3><p>30 days of content in 20 minutes. SEO blogs, social posts, email sequences.</p><div class="career-tag">12 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">🎯</div><h3>Digital Marketer</h3><p>Campaigns that convert. Ad copy, funnel strategy, A/B test ideas.</p><div class="career-tag">15 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">👩‍🏫</div><h3>Teacher</h3><p>Lesson plans, assessments, differentiated instruction.</p><div class="career-tag">10 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">💻</div><h3>Software Developer</h3><p>Code review, architecture, debugging — AI as your senior pair programmer.</p><div class="career-tag">14 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">📊</div><h3>Data Analyst</h3><p>SQL queries, dashboards, insight narratives — data into board-ready stories.</p><div class="career-tag">11 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">🎨</div><h3>Graphic Designer</h3><p>Brand guidelines, creative briefs, design systems.</p><div class="career-tag">9 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">✍️</div><h3>Copywriter</h3><p>Headlines that hook, body that converts, CTAs that click.</p><div class="career-tag">13 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">🏥</div><h3>Healthcare Pro</h3><p>Patient communication, research summaries, clinical docs.</p><div class="career-tag">8 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">📈</div><h3>Entrepreneur</h3><p>Business plans, pitch decks, market analysis — your AI co-founder.</p><div class="career-tag">16 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">🎬</div><h3>Video Creator</h3><p>Scripts, storyboards, thumbnails, hooks — content at scale.</p><div class="career-tag">11 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">⚖️</div><h3>Lawyer</h3><p>Contract analysis, case research, client communications.</p><div class="career-tag">9 Prompts</div></div>
+    <div class="career-card"><div class="career-icon">🏗️</div><h3>Project Manager</h3><p>Sprint planning, stakeholder updates, risk assessment.</p><div class="career-tag">12 Prompts</div></div>
+  </div>
+  <p style="text-align:center; padding:32px 0 48px; color:var(--gray-400); font-size:14px;" class="reveal">
+    + 33 more careers with complete prompt libraries
+  </p>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2026 The FIRST Method. Built with AI. Perfected by humans.<br>
-    <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
-  </footer>
+<!-- VIDEO: CAREERS MONTAGE -->
+<section class="section-pad" style="padding-top:0;">
+  <div class="video-split reverse">
+    <div class="text">
+      <div class="section-label reveal">Built For You</div>
+      <h2 class="section-title reveal reveal-d1">One Framework.<br>Every Profession.</h2>
+      <p class="section-sub reveal reveal-d2">
+        From marketers to doctors, developers to teachers — FIRST works because communication is universal.
+      </p>
+    </div>
+    <div class="visual reveal reveal-d3">
+      <video autoplay muted loop playsinline>
+        <source src="videos/careers.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
 
-  <!-- Scripts -->
-  <script>
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+<div class="glow-divider"></div>
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+<!-- TESTIMONIAL -->
+<section class="testimonial-section section-pad">
+  <blockquote class="reveal">
+    "I went from getting generic AI responses to getting outputs that my clients pay thousands for. The FIRST Method didn't just improve my prompts — it changed how I think about communication."
+  </blockquote>
+  <div class="testimonial-author reveal reveal-d1">— Early Beta Tester</div>
+</section>
 
-    // Floating particles
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 30; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
-      particle.style.animationDelay = (Math.random() * 10) + 's';
-      particle.style.width = particle.style.height = (Math.random() * 3 + 1) + 'px';
-      particlesContainer.appendChild(particle);
+<!-- PRICING -->
+<section class="pricing-section section-pad" id="pricing">
+  <div class="section-label reveal">Get Your Copy</div>
+  <h2 class="section-title reveal reveal-d1">Invest in Your<br>AI Future</h2>
+  <div class="pricing-grid">
+    <div class="price-card reveal reveal-d1">
+      <div class="price-tier">Free Preview</div>
+      <div class="price-amount"><span class="cur">₹</span>0</div>
+      <div class="price-desc">30 career prompts and the FIRST framework basics.</div>
+      <ul class="price-list">
+        <li>30 Career Guides</li>
+        <li>Basic FIRST Framework</li>
+        <li>Community Access</li>
+      </ul>
+      <a href="#" class="btn-outline">Download Free →</a>
+    </div>
+    <div class="price-card featured reveal reveal-d2">
+      <div class="price-tier">Complete Ebook</div>
+      <div class="price-amount"><span class="cur">₹</span>299</div>
+      <div class="price-desc">The full playbook. 45 careers, advanced techniques, money prompts.</div>
+      <ul class="price-list">
+        <li>All 45 Career Guides</li>
+        <li>Advanced FIRST Techniques</li>
+        <li>Money Prompts Library</li>
+        <li>Conversation Architecture</li>
+        <li>Transformation Stories</li>
+        <li>Lifetime Updates</li>
+      </ul>
+      <a href="#" class="btn-gold">Buy Now — ₹299 →</a>
+    </div>
+    <div class="price-card reveal reveal-d3">
+      <div class="price-tier">Ultimate Bundle</div>
+      <div class="price-amount"><span class="cur">₹</span>999</div>
+      <div class="price-desc">Ebook + video course + templates. Master AI completely.</div>
+      <ul class="price-list">
+        <li>Everything in Ebook</li>
+        <li>Video Masterclass</li>
+        <li>50+ Prompt Templates</li>
+        <li>Industry Playbooks</li>
+        <li>Priority Support</li>
+        <li>1-on-1 Setup Call</li>
+      </ul>
+      <a href="#" class="btn-gold">Get the Bundle →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta section-pad">
+  <h2 class="reveal">Stop Guessing.<br>Start <em style="font-style:italic; color:var(--gold);">FIRST.</em></h2>
+  <p class="reveal reveal-d1">Join thousands who turned AI from a novelty into their biggest advantage.</p>
+  <a href="#pricing" class="btn-gold reveal reveal-d2" style="font-size:17px; padding:18px 52px;">Get Your Copy Now →</a>
+</section>
+
+<footer>
+  <p>© 2026 The FIRST Method. Built with AI. Perfected by humans.<br>
+  <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
+</footer>
+
+<script>
+  // Intersection Observer
+  const io = new IntersectionObserver(e => {
+    e.forEach(x => { if(x.isIntersecting) x.target.classList.add('visible'); });
+  }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Particles
+  const pc = document.getElementById('particles');
+  for(let i=0;i<25;i++){
+    const d = document.createElement('div');
+    d.className='dot';
+    d.style.left = Math.random()*100+'%';
+    d.style.animationDuration = (Math.random()*18+12)+'s';
+    d.style.animationDelay = (Math.random()*12)+'s';
+    const s = Math.random()*2.5+1;
+    d.style.width = d.style.height = s+'px';
+    pc.appendChild(d);
+  }
+
+  // Parallax hero
+  window.addEventListener('scroll',()=>{
+    const s = window.scrollY;
+    const h = document.querySelector('.hero-content');
+    if(h && s<900){
+      h.style.transform = `translateY(${s*0.12}px)`;
+      h.style.opacity = 1 - s/700;
     }
-
-    // Load videos
-    const videos = {
-      heroVideo: 'videos/hero.mp4',
-      frameworkVideo: 'videos/framework.mp4',
-      transformVideo: 'videos/transformation.mp4'
-    };
-    Object.entries(videos).forEach(([id, src]) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const source = document.createElement('source');
-        source.src = src;
-        source.type = 'video/mp4';
-        el.appendChild(source);
-      }
-    });
-
-    // Smooth parallax on hero
-    window.addEventListener('scroll', () => {
-      const hero = document.querySelector('.hero-content');
-      if (hero) {
-        const scrolled = window.scrollY;
-        hero.style.transform = `translateY(${scrolled * 0.15}px)`;
-        hero.style.opacity = 1 - (scrolled / 800);
-      }
-    });
-  </script>
+  }, {passive:true});
+</script>
 </body>
 </html>
